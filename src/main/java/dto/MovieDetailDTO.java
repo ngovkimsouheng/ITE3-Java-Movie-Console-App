@@ -1,0 +1,80 @@
+package dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import model.MovieGenre;
+import model.Country;
+import model.Studio;
+
+import java.util.List;
+
+@Getter
+@Setter
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MovieDetailDTO {
+    @JsonProperty("id")
+    private String movieId;
+
+    private String title;
+
+    @JsonProperty("budget")
+    private Double budgetAmount;
+
+    @JsonProperty("release_date")
+    private String releaseDate;
+
+    @JsonProperty("runtime")
+    private Double duration;
+
+    @JsonProperty("vote_average")
+    private Double rating;
+
+    @JsonProperty("overview")
+    private String summary;
+
+    private List<MovieGenre> genres;
+
+    @JsonProperty("production_countries")
+    private List<Country> productionCountries;
+
+    @JsonProperty("production_companies")
+    private List<Studio> productionStudios;
+
+    private List<CastResponseDTO> castGroups;
+}
+
+//package dto;
+//
+//import com.fasterxml.jackson.annotation.JsonProperty;
+//import lombok.Getter;
+//import lombok.Setter;
+//import model.MovieGenre;
+//
+//import java.util.List;
+//
+//@Getter
+//@Setter
+//public class MovieDetailDTO {
+//
+//    private Integer id;
+//    private String title;
+//
+//    private String overview;
+//
+//    @JsonProperty("release_date")
+//    private String releaseDate;
+//
+//    @JsonProperty("vote_average")
+//    private Double rating;
+//
+//    private Integer runtime;
+//
+//    private Integer budget;
+//
+//    private List<MovieGenre> genres;
+//
+//}
