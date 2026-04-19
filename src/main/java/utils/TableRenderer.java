@@ -30,7 +30,7 @@ public class TableRenderer {
 
         for (Film movie : response.getMovies()) {
 
-            table.addCell(safe(movie.getMovieId()));
+            table.addCell(safe(movie.getMovieId().toString()));
             table.addCell(safe(movie.getMovieTitle()));
             table.addCell(safe(movie.getReleaseDate()));
             table.addCell(movie.getAverageRating() != null ? movie.getAverageRating().toString() : "N/A");
@@ -59,23 +59,23 @@ public class TableRenderer {
             Table table = new Table(2, BorderStyle.CLASSIC, ShownBorders.ALL);
             CellStyle center = new CellStyle(CellStyle.HorizontalAlign.CENTER);
 
-            addRow(table, center, "ID", safe(movie.getMovieId()));
+            addRow(table, center, "ID", safe(movie.getMovieId().toString()));
             addRow(table, center, "TITLE", safe(movie.getTitle()));
             addRow(table, center, "BUDGET", String.valueOf(movie.getBudgetAmount()));
             addRow(table, center, "RELEASE DATE", safe(movie.getReleaseDate()));
             addRow(table, center, "RUNTIME", String.valueOf(movie.getDuration()));
             addRow(table, center, "RATING", String.valueOf(movie.getRating()));
             addRow(table, center, "OVERVIEW", safe(movie.getSummary()));
-
-            addRow(table, center, "GENRES", joinGenres(movie.getGenres()));
-            addRow(table, center, "COUNTRY", extractCountries(movie.getProductionCountries()));
-            addRow(table, center, "COMPANIES", extractStudios(movie.getProductionStudios()));
+//
+//            addRow(table, center, "GENRES", joinGenres(movie.getGenres()));
+//            addRow(table, center, "COUNTRY", extractCountries(movie.getProductionCountries()));
+//            addRow(table, center, "COMPANIES", extractStudios(movie.getProductionStudios()));
 
             System.out.println(table.render());
-
-            if (castResponse != null) {
-                displayCastTable(castResponse);
-            }
+//
+//            if (castResponse != null) {
+//                displayCastTable(castResponse);
+//            }
 
         } catch (Exception e) {
             System.out.println("⚠️ Error rendering table: " + e.getMessage());
@@ -85,38 +85,38 @@ public class TableRenderer {
     // =========================
     // CAST TABLE
     // =========================
-    private static void displayCastTable(CastResponseDTO response) {
-
-        if (response == null || response.getCastList() == null) {
-            System.out.println("Cast data not available");
-            return;
-        }
-
-        Table table = new Table(3, BorderStyle.CLASSIC, ShownBorders.ALL);
-        CellStyle center = new CellStyle(CellStyle.HorizontalAlign.CENTER);
-
-        String[] headers = {"NAME", "GENDER", "CHARACTER"};
-
-        for (String h : headers) {
-            table.addCell(h, center);
-        }
-
-        for (Actor actor : response.getCastList()) {
-
-            table.addCell(safe(actor.getFullName()));
-
-            table.addCell(
-                    actor.getGender() == null ? "Unknown"
-                            : actor.getGender().equals("1") ? "Female"
-                            : actor.getGender().equals("2") ? "Male"
-                            : "Unknown"
-            );
-
-            table.addCell(safe(actor.getRoleName()));
-        }
-
-        System.out.println(table.render());
-    }
+//    private static void displayCastTable(CastResponseDTO response) {
+//
+//        if (response == null || response.getCastList() == null) {
+//            System.out.println("Cast data not available");
+//            return;
+//        }
+//
+//        Table table = new Table(3, BorderStyle.CLASSIC, ShownBorders.ALL);
+//        CellStyle center = new CellStyle(CellStyle.HorizontalAlign.CENTER);
+//
+//        String[] headers = {"NAME", "GENDER", "CHARACTER"};
+//
+//        for (String h : headers) {
+//            table.addCell(h, center);
+//        }
+//
+//        for (Actor actor : response.getCastList()) {
+//
+//            table.addCell(safe(actor.getFullName()));
+//
+//            table.addCell(
+//                    actor.getGender() == null ? "Unknown"
+//                            : actor.getGender().equals("1") ? "Female"
+//                            : actor.getGender().equals("2") ? "Male"
+//                            : "Unknown"
+//            );
+//
+//            table.addCell(safe(actor.getRoleName()));
+//        }
+//
+//        System.out.println(table.render());
+//    }
 
     // =========================
     // HELPERS
@@ -138,6 +138,7 @@ public class TableRenderer {
             if (g.getGenreName() != null) {
                 names.add(g.getGenreName());
             }
+
         }
         return String.join(", ", names);
     }
