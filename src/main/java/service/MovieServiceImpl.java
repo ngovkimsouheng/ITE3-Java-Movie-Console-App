@@ -47,18 +47,18 @@
 //    // =========================
 //    // MOVIE DETAILS
 //    // =========================
-////    @Override
-////    public MovieDetailDTO fetchMovieDetails(String movieId) {
-////
-////        String encodedId = URLEncoder.encode(movieId, StandardCharsets.UTF_8);
-////
-////        String url = String.format(
-////                "%s/movie/%s?api_key=%s",
-////                API.BASE_URL, encodedId, API.API_KEY
-////        );
-////
-////        return request(url, MovieDetailDTO.class);
-////    }
+/// /    @Override
+/// /    public MovieDetailDTO fetchMovieDetails(String movieId) {
+/// /
+/// /        String encodedId = URLEncoder.encode(movieId, StandardCharsets.UTF_8);
+/// /
+/// /        String url = String.format(
+/// /                "%s/movie/%s?api_key=%s",
+/// /                API.BASE_URL, encodedId, API.API_KEY
+/// /        );
+/// /
+/// /        return request(url, MovieDetailDTO.class);
+/// /    }
 //    @Override
 //    public MovieDetailDTO fetchMovieDetails(String movieId) {
 //
@@ -146,21 +146,21 @@
 //    // =========================
 //    // GENERIC API CALL
 //    // =========================
-////    private <T> T request(String url, Class<T> responseType) {
-////
-////        HttpRequest request = HttpRequest.newBuilder()
-////                .uri(URI.create(url))
-////                .timeout(Duration.ofSeconds(10))
-////                .header("Accept", "application/json")
-////                .GET()
-////                .build();
-////
-////        try {
-////            HttpResponse<String> response = httpClient.send(
-////                    request,
-////                    HttpResponse.BodyHandlers.ofString()
-////            );
-////
+/// /    private <T> T request(String url, Class<T> responseType) {
+/// /
+/// /        HttpRequest request = HttpRequest.newBuilder()
+/// /                .uri(URI.create(url))
+/// /                .timeout(Duration.ofSeconds(10))
+/// /                .header("Accept", "application/json")
+/// /                .GET()
+/// /                .build();
+/// /
+/// /        try {
+/// /            HttpResponse<String> response = httpClient.send(
+/// /                    request,
+/// /                    HttpResponse.BodyHandlers.ofString()
+/// /            );
+/// /
 //
 //    /// /            System.out.println("URL: " + url);
 //    /// /            System.out.println("STATUS: " + response.statusCode());
@@ -379,6 +379,22 @@ public class MovieServiceImpl implements MovieService {
         );
 
         MovieListResponseDTO response = request(url, MovieListResponseDTO.class);
+
+        enrichWithTrailer(response);
+
+        return response;
+    }
+
+    @Override
+    public MovieListResponseDTO fetchTopRatedMovies(Integer page) {
+
+        String url = String.format(
+                "%s/movie/top_rated?api_key=%s&page=%d",
+                API.BASE_URL, API.API_KEY, page
+        );
+
+        MovieListResponseDTO response =
+                request(url, MovieListResponseDTO.class);
 
         enrichWithTrailer(response);
 

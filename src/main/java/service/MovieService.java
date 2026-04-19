@@ -43,4 +43,6 @@ public interface MovieService {
     MovieListResponseDTO fetchMoviesByGenre(Integer page, String genreId);
 
     CastResponseDTO fetchMovieCast(String movieId);
+
+    MovieListResponseDTO fetchTopRatedMovies(Integer page);
 }

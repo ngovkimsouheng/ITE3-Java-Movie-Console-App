@@ -22,6 +22,7 @@ public class Main {
             System.out.println("[ 1 ] Search Movies By Title");
             System.out.println("[ 2 ] Popular Movies");
             System.out.println("[ 3 ] Search By Genres");
+            System.out.println("[ 4 ] Top Rated Movies");
             System.out.println("[ E ] Exit ");
             System.out.print("Enter Option : ");
 
@@ -53,10 +54,10 @@ public class Main {
                                 + " | Total Result : " + response.getTotalResults());
 
                         System.out.println("""
-                            [n] Next Page      [p] Previous Page
-                            [g] Go to Page     [md] Movie Detail
-                            [b] Back           [e] Exit
-                        """);
+                                    [n] Next Page      [p] Previous Page
+                                    [g] Go to Page     [md] Movie Detail
+                                    [b] Back           [e] Exit
+                                """);
 
                         System.out.print("Choose: ");
                         String choice = scanner.nextLine().trim().toLowerCase();
@@ -108,10 +109,10 @@ public class Main {
                                 + " | Total Result : " + response.getTotalResults());
 
                         System.out.println("""
-                            [n] Next Page      [p] Previous Page
-                            [g] Go to Page     [md] Movie Detail
-                            [b] Back           [e] Exit
-                        """);
+                                    [n] Next Page      [p] Previous Page
+                                    [g] Go to Page     [md] Movie Detail
+                                    [b] Back           [e] Exit
+                                """);
 
                         System.out.print("Choose: ");
                         String choice = scanner.nextLine().trim().toLowerCase();
@@ -194,10 +195,10 @@ public class Main {
                                 + " | Total Result : " + response.getTotalResults());
 
                         System.out.println("""
-                            [n] Next Page      [p] Previous Page
-                            [g] Go to Page     [md] Movie Detail
-                            [b] Back           [e] Exit
-                        """);
+                                    [n] Next Page      [p] Previous Page
+                                    [g] Go to Page     [md] Movie Detail
+                                    [b] Back           [e] Exit
+                                """);
 
                         System.out.print("Choose: ");
                         String choiceOpt = scanner.nextLine().trim().toLowerCase();
@@ -229,6 +230,75 @@ public class Main {
                     }
                 }
 
+
+//                TOP RATE
+                case "4" -> {
+                    System.out.println("============ Top Rated Movies ===========");
+
+                    int currentPage = 1;
+                    boolean isSearching = true;
+
+                    while (isSearching) {
+
+                        try {
+                            MovieListResponseDTO movieResponse =
+                                    movieService.fetchTopRatedMovies(currentPage);
+
+                            TableRenderer.displayMovies(movieResponse);
+
+                            System.out.println("Page " + movieResponse.getPage()
+                                    + " of " + movieResponse.getTotalPages()
+                                    + " | Total Result : " + movieResponse.getTotalResults());
+
+                            System.out.println("""
+                                    [n] Next Page      [p] Previous Page
+                                    [g] Go to Page     [md] Movie Detail
+                                    [b] Back           [e] Exit
+                                    """);
+
+                            System.out.print("Choose: ");
+                            String op = scanner.nextLine().toLowerCase();
+
+                            switch (op) {
+
+                                case "n" -> currentPage =
+                                        updatePage(movieResponse, currentPage, currentPage + 1);
+
+                                case "p" -> currentPage =
+                                        updatePage(movieResponse, currentPage, currentPage - 1);
+
+                                case "g" -> {
+                                    try {
+                                        System.out.print("Enter Page: ");
+                                        int goTo = Integer.parseInt(scanner.nextLine());
+                                        currentPage =
+                                                updatePage(movieResponse, currentPage, goTo);
+                                    } catch (Exception e) {
+                                        System.out.println("Invalid number!");
+                                    }
+                                }
+
+                                case "md" -> {
+                                    System.out.print("Enter Movie ID: ");
+                                    String movieId = scanner.nextLine();
+
+                                    TableRenderer.displayMovieDetails(
+                                            movieService.fetchMovieDetails(movieId),
+                                            movieService.fetchMovieCast(movieId)
+                                    );
+                                }
+
+                                case "b" -> isSearching = false;
+
+                                case "e" -> System.exit(0);
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                            break;
+                        }
+                    }
+                }
                 case "e" -> System.exit(0);
 
                 default -> System.out.println("Invalid Option!");
