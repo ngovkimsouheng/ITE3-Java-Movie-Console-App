@@ -18,7 +18,7 @@ public class Main {
 
         while (true) {
 
-            System.out.println("============ ICinema ===========");
+            System.out.println("============ Cinema ===========");
             System.out.println("[ 1 ] Search Movies By Title");
             System.out.println("[ 2 ] Popular Movies");
             System.out.println("[ 3 ] Search By Genres");
