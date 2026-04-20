@@ -83,42 +83,6 @@ public class TableRenderer {
     }
 
     // =========================
-    // CAST TABLE
-    // =========================
-//    private static void displayCastTable(CastResponseDTO response) {
-//
-//        if (response == null || response.getCastList() == null) {
-//            System.out.println("Cast data not available");
-//            return;
-//        }
-//
-//        Table table = new Table(3, BorderStyle.CLASSIC, ShownBorders.ALL);
-//        CellStyle center = new CellStyle(CellStyle.HorizontalAlign.CENTER);
-//
-//        String[] headers = {"NAME", "GENDER", "CHARACTER"};
-//
-//        for (String h : headers) {
-//            table.addCell(h, center);
-//        }
-//
-//        for (Actor actor : response.getCastList()) {
-//
-//            table.addCell(safe(actor.getFullName()));
-//
-//            table.addCell(
-//                    actor.getGender() == null ? "Unknown"
-//                            : actor.getGender().equals("1") ? "Female"
-//                            : actor.getGender().equals("2") ? "Male"
-//                            : "Unknown"
-//            );
-//
-//            table.addCell(safe(actor.getRoleName()));
-//        }
-//
-//        System.out.println(table.render());
-//    }
-
-    // =========================
     // HELPERS
     // =========================
     private static void addRow(Table table, CellStyle style, String key, String value) {
